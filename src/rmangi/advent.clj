@@ -25,6 +25,20 @@
 (defn sum-calories [elves]
   (map sum-list elves))
 
+
+(defn day1-2 
+  "How many total Calories is the top 3 elves carrying?"
+  [data]
+  ;(println data)
+  (->> data
+       group-by-elf
+       sum-calories
+       sort
+       reverse
+       (take 3)
+       sum-list
+       println))
+
 (defn day1
   "How many total Calories is that Elf carrying?"
   [data]
@@ -32,6 +46,7 @@
   (->> data
        group-by-elf
        sum-calories
+       sort
        (apply max)
        println))
 
@@ -39,4 +54,5 @@
   [& args]
   (println (first args))
   (let [data (file-to-list (first args))]
-    (day1 data)))
+    (day1 data)
+    (day1-2 data)))
