@@ -1,6 +1,7 @@
 (ns rmangi.advent
   (:gen-class)
-  (:require [clojure.java.io :as io]))
+  (:require [clojure.java.io :as io]
+            [clojure.tools.cli :refer [parse-opts]]))
 
 (defn file-to-list [filename]
   (with-open [rdr (clojure.java.io/reader filename)]
@@ -9,6 +10,13 @@
 (defn int-or-nil [maybe-int]
   (try (Integer/parseInt maybe-int)
        (catch Exception _ nil)))
+
+(defn read-data [day]
+  (io/resource
+   (str day ".txt")))
+
+(defn sum-list [l]
+  (reduce (fn [t n] (+ t n)) 0 l))
 
 (defn group-by-elf [list-of-data]
   (loop [elves [] next-elf [] items list-of-data]
@@ -19,15 +27,11 @@
           (recur elves (conj next-elf maybe-int) (rest items))
           (recur (conj elves next-elf) [] (rest items)))))))
 
-(defn sum-list [l]
-  (reduce (fn [t n] (+ t n)) 0 l))
-
 (defn sum-calories [elves]
   (map sum-list elves))
 
-
-(defn day1-2 
-  "How many total Calories is the top 3 elves carrying?"
+(defn day1-2
+  "How many total Calories are the top 3 elves carrying?"
   [data]
   ;(println data)
   (->> data
@@ -39,7 +43,7 @@
        sum-list
        println))
 
-(defn day1
+(defn day1-1
   "How many total Calories is that Elf carrying?"
   [data]
   ;(println data)
@@ -50,9 +54,25 @@
        (apply max)
        println))
 
+(defn run-day-1
+  []
+  (println "day 1...")
+  (let [data (file-to-list (read-data "day1"))]
+    (day1-1 data)
+    (day1-2 data)))
+
+(def cli-options
+  [["-d" "--day DAY" "which day"
+    :parse-fn #(Integer/parseInt %)
+    :validate [#(< 0 % 31) "Must be a number between 1 and 31"]]
+   ["-h" "--help"]])
+
 (defn -main
   [& args]
-  (println (first args))
-  (let [data (file-to-list (first args))]
-    (day1 data)
-    (day1-2 data)))
+  (let [opts (parse-opts args cli-options)
+        day (get-in opts [:options :day])]
+    (if (nil? (:errors opts))
+      (condp = day
+        1 (run-day-1)
+        (println "not yet!"))
+      (println "Got errors parsing: " (:errors opts)))))
