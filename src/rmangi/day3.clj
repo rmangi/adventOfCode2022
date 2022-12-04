@@ -11,23 +11,25 @@
   (let [[left  right] (split-at (/ (count sack) 2) (seq sack))]
     (intersection (set left) (set right))))
 
-(defn day3-1 [data]
+(defn part1 [data]
   (let [results
-        (reduce (fn [totals sack]
-                  (conj totals (get priorities (str (first (parse-sack sack))))))
-                [] data)]
+        (reduce
+         (fn [totals sack]
+           (conj totals (get priorities (str (first (parse-sack sack))))))
+         [] data)]
     (reduce #(+ %1 %2) 0 results)))
 
-(defn day3-2 [data]
+(defn part2 [data]
   (loop [total 0 sacks data]
     (if (empty? sacks)
       total
-      (recur (+ total (get priorities (str (first (apply intersection (map set (take 3 sacks))))))) (drop 3 sacks)))))
+      (recur (+ total (get priorities (str (first (apply intersection (map set (take 3 sacks)))))))
+             (drop 3 sacks)))))
 
 (defn run-day
   []
   (println "day 3... rucksacks. stupid elves.")
   (let [data (file-to-lines
               (get-day-resource "day3"))]
-    (println "part1: " (day3-1 data))
-    (println "part2: " (day3-2 data))))
+    (println "part1: " (part1 data))
+    (println "part2: " (part2 data))))

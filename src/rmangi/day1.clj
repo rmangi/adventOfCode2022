@@ -15,7 +15,7 @@
 (defn sum-calories [elves]
   (map sum-list elves))
 
-(defn day1-2
+(defn part2
   "How many total Calories are the top 3 elves carrying?"
   [data]
   ;(println data)
@@ -28,7 +28,7 @@
        sum-list
        println))
 
-(defn day1-1
+(defn part1
   "How many total Calories is that Elf carrying?"
   [data]
   ;(println data)
@@ -43,5 +43,5 @@
   []
   (println "day 1...")
   (let [data (file-to-list (get-day-resource "day1"))]
-    (day1-1 data)
-    (day1-2 data)))
+    (part1 data)
+    (part2 data)))

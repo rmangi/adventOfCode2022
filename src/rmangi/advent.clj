@@ -3,7 +3,8 @@
   (:require [clojure.tools.cli :refer [parse-opts]]
             [rmangi.day1 :as day1]
             [rmangi.day2 :as day2]
-            [rmangi.day3 :as day3]))
+            [rmangi.day3 :as day3]
+            [rmangi.day4 :as day4]))
 
 (def cli-options
   [["-d" "--day DAY" "which day"
@@ -20,5 +21,7 @@
         1 (day1/run-day)
         2 (day2/run-day)
         3 (day3/run-day)
+        4 (day4/run-day)
+
         (println "not yet!"))
       (println "Got errors parsing: " (:errors opts)))))

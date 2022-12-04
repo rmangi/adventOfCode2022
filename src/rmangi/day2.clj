@@ -19,7 +19,7 @@
 
 (def addendum {:X :lose :Y :tie :Z :win})
 
-(defn day2-2
+(defn part2
   [data]
   (println  "Would you like to play another game?")
   (loop [score 0 moves data]
@@ -39,7 +39,7 @@
                            (if (= weplay (val theyplay)) 3 0))]
         (recur (+ score playpoints (:points weplay)) (rest moves))))))
 
-(defn day2-1
+(defn part1
   [data]
   (println  "Would you like to play a game?")
   (loop [score 0 moves data]
@@ -58,6 +58,6 @@
   (println "day 2...")
   (let [data (file-to-lines
               (get-day-resource "day2"))]
-    (print "first game score: " (day2-1 data))
+    (print "first game score: " (part1 data))
 
-    (print "second game score: " (day2-2 data))))
+    (print "second game score: " (part2 data))))
