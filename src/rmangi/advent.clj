@@ -22,6 +22,6 @@
         2 (day2/run-day)
         3 (day3/run-day)
         4 (day4/run-day)
-
+        5 (day5/run-day)
         (println "not yet!"))
       (println "Got errors parsing: " (:errors opts)))))
