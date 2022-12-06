@@ -4,7 +4,9 @@
             [rmangi.day1 :as day1]
             [rmangi.day2 :as day2]
             [rmangi.day3 :as day3]
-            [rmangi.day4 :as day4]))
+            [rmangi.day4 :as day4]
+            [rmangi.day5 :as day5]
+            [rmangi.day6 :as day6]))
 
 (def cli-options
   [["-d" "--day DAY" "which day"
@@ -23,5 +25,6 @@
         3 (day3/run-day)
         4 (day4/run-day)
         5 (day5/run-day)
+        6 (day6/run-day)
         (println "not yet!"))
       (println "Got errors parsing: " (:errors opts)))))
